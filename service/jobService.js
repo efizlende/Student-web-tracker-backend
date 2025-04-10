@@ -49,6 +49,21 @@ const deleteJob = async (jobId) => {
   }
 };
 
+
+
+
+
+
+
+const getFilteredJobs = async (status, startDate, endDate) => {
+  return await jobRepository.getFilteredJobs(status, startDate, endDate);
+};
+
+module.exports = {
+  getFilteredJobs
+};
+
+
 module.exports = {
   addJob,
   getJobs,

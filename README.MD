@@ -56,6 +56,7 @@ GET     /api/jobs/find-job          -> List all jobs
 POST    /api/jobs/add-job          -> Add a new job
 PUTCH     /api/jobs/update-status/:id      -> Update job status
 DELETE  /api/jobs/delete-job/:id      -> Delete a job
+Get     /api/jobs/filter-job             Filter jobs
 ```
 
 ## ☁️ Deployment

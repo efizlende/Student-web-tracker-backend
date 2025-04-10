@@ -54,9 +54,34 @@ const deleteJobById = async (jobId) => {
 
 
 
+
+
+
+const getFilteredJobs = async (status, startDate, endDate) => {
+  let filter = {};
+
+  if (status) {
+    filter.status = status; 
+  }
+
+  if (startDate && endDate) {
+    filter.appliedDate = {
+      $gte: new Date(startDate), 
+      $lte: new Date(endDate)    
+    };
+  }
+
+  return await Job.find(filter).sort({ appliedDate: -1 }); 
+};
+
+
+
 module.exports = {
   createJob,
   getAllJobs,
   updateJobStatus,
   deleteJobById,
+  getFilteredJobs
 };
+
+

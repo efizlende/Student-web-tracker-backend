@@ -1,8 +1,7 @@
-// controllers/jobController.js
 const jobService = require('../service/jobService');
 
 // Adicionar candidatura
-exports.addJob = async (req, res) => {
+const addJob = async (req, res) => {
   try {
     const newJob = await jobService.addJob(req.body);
     res.status(201).json(newJob);
@@ -18,7 +17,7 @@ exports.addJob = async (req, res) => {
 
 
 // Listar todas
-exports.getJobs = async (req, res) => {
+const getJobs = async (req, res) => {
   try {
     const jobs = await jobService.getJobs();
     res.status(200).json(jobs);
@@ -35,7 +34,7 @@ exports.getJobs = async (req, res) => {
 
 
 // Atualizar status
-exports.updateStatus = async (req, res) => {
+const updateStatus = async (req, res) => {
   try {
     const updatedJob = await jobService.updateStatus(req.params.id, req.body.status);
     res.json(updatedJob);
@@ -50,13 +49,38 @@ exports.updateStatus = async (req, res) => {
 
 
 
-
 // Deletar candidatura
-exports.deleteJob = async (req, res) => {
+const deleteJob = async (req, res) => {
   try {
     await jobService.deleteJob(req.params.id);
     res.json({ message: 'Deletado com sucesso!' });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
+};
+
+
+
+
+
+
+
+// Filtrar empregos
+const filterJobs = async (req, res) => {
+  try {
+    const { status, startDate, endDate } = req.query;
+    const jobs = await jobService.getFilteredJobs(status, startDate, endDate);
+    res.json(jobs);
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao buscar empregos filtrados." });
+  }
+};
+
+
+module.exports = {
+  addJob,
+  getJobs,
+  updateStatus,
+  deleteJob,
+  filterJobs
 };
